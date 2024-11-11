@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useDispatch } from 'react-redux';
+import { selectBike } from '../redux/bikeSlice';
 
 const bikes = [
     { id: '1', name: 'Pinarello', price: 1800, type: 'Roadbike', image: require('../img/bikeblue.png') },
@@ -17,19 +19,24 @@ const categories = ['All', 'Roadbike', 'Mountain'];
 const Stack = createNativeStackNavigator();
 export default function Home({navigation}: any) {
     const [selectedCategory, setSelectedCategory] = useState('All');
+    const dispatch = useDispatch();
 
     const filteredBikes = selectedCategory === 'All' ? bikes : bikes.filter(bike => bike.type === selectedCategory);
 
+    const handlePress = (bike) => {
+        dispatch(selectBike(bike));
+        navigation.navigate('Detail');
+    };
+
     const renderBikeItem = ({ item }) => (
         <View style={styles.bikeCard}>
-          <TouchableOpacity onPress={() => {navigation.navigate("Detail")}}>
-              <Image source={item.image} style={styles.bikeImage} />
-              <Text style={styles.bikeName}>{item.name}</Text>
-              <Text style={styles.bikePrice}>${item.price}</Text>
+            <TouchableOpacity onPress={() => handlePress(item)}>
+                <Image source={item.image} style={styles.bikeImage} />
+                <Text style={styles.bikeName}>{item.name}</Text>
+                <Text style={styles.bikePrice}>${item.price}</Text>
             </TouchableOpacity>
         </View>
     );
-
     return (
         <View style={styles.container}>
             <Text style={styles.header}>The world's Best Bike</Text>
