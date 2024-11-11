@@ -1,27 +1,27 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useSelector } from 'react-redux';
 
-const Stack = createNativeStackNavigator();
-export default function Detail({navigation}: any) {
-    const product = {
-        name: 'Pina Mountain',
-        discount: '15% OFF',
-        originalPrice: 449,
-        discountedPrice: 350,
-        description: 'It is a very important form of writing as we write almost everything in paragraphs, be it an answer, essay, story, emails, etc.',
-        image: 'link_to_image', 
-    };
+export default function Detail() {
+    const selectedBike = useSelector((state) => state.bike.selectedBike);
+
+    if (!selectedBike) {
+        return <Text>No bike selected</Text>;
+    }
 
     return (
         <View style={styles.container}>
-            <Image source={require('../img/pinaMoutain.png')} style={styles.image} />
-            <Text style={styles.name}>{product.name}</Text>
-            <Text style={styles.discount}>{product.discount} | ${product.discountedPrice}</Text>
-            <Text style={styles.originalPrice}>${product.originalPrice}</Text>
+
+            <Image source={selectedBike.image} style={styles.image} />
+            <Text style={styles.name}>{selectedBike.name}</Text>
+            <Text style={styles.discount}>15% OFF | $350</Text>
+            <Text style={styles.originalPrice}>${selectedBike.price}</Text>
             <Text style={styles.sectionTitle}>Description</Text>
-            <Text style={styles.description}>{product.description}</Text>
+            <Text style={styles.description}>
+            It is a very important form of writing as we write almost everything in paragraphs, be it an    answer, essay, story, emails, etc.
+            </Text>
+           
             <TouchableOpacity style={styles.addToCartButton} 
               onPress={() => {navigation.navigate("Init")}}
               >
@@ -79,10 +79,9 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#555',
         marginBottom: 16,
-        textAlign: 'center',
     },
     addToCartButton: {
-        backgroundColor: '#e91e63',
+        backgroundColor: 'orange',
         borderRadius: 20,
         paddingVertical: 10,
         paddingHorizontal: 40,
