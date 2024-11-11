@@ -23,7 +23,7 @@ export default function Detail({navigation}: any) {
             </Text>
            
             <TouchableOpacity style={styles.addToCartButton} 
-              onPress={() => {navigation.navigate("Init")}}
+              onPress={() => navigation.navigate("Init", { image: selectedBike.image })}
               >
                 <Text style={styles.addToCartText}>Add to cart</Text>
             </TouchableOpacity>
