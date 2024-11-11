@@ -37,11 +37,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         padding: 16,
         borderRadius: 8,
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 10,
-        elevation: 5,
         margin: 16,
     },
     image: {
