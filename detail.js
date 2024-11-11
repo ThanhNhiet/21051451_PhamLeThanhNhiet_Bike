@@ -3,7 +3,7 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
-export default function Detail() {
+export default function Detail({navigation}: any) {
     const selectedBike = useSelector((state) => state.bike.selectedBike);
 
     if (!selectedBike) {
